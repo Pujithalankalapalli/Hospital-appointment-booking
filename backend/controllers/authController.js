@@ -19,7 +19,8 @@ const generateOTP = () => {
 // @route   POST /api/auth/register
 // @access  Public
 export const registerUser = async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, password, role } = req.body;
+    const email = req.body.email?.trim();
 
     if (!name || !email || !password) {
         return res.status(400).json({ message: 'Please include all fields' });
@@ -65,7 +66,8 @@ export const registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 export const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = req.body.email?.trim();
 
     if (!email || !password) {
         return res.status(400).json({ message: 'Please provide email and password' });
@@ -107,7 +109,8 @@ export const loginUser = async (req, res) => {
 // @route   POST /api/auth/send-otp
 // @access  Public
 export const sendOtp = async (req, res) => {
-    const { email, name } = req.body;
+    const { name } = req.body;
+    const email = req.body.email?.trim();
 
     if (!email) {
         return res.status(400).json({ message: 'Please provide an email' });
@@ -141,7 +144,7 @@ export const sendOtp = async (req, res) => {
             });
 
             // Output for testing locally since real email might not be configured
-            console.log(`[DEV] OTP for ${email} is ${otp}`);
+            console.log(`[SUCCESS] Email sent to ${user.email} with OTP ${otp}. (Also logging here for dev)`);
 
             res.status(200).json({ success: true, message: 'OTP sent to email' });
         } catch (error) {
@@ -167,7 +170,8 @@ export const sendOtp = async (req, res) => {
 // @route   POST /api/auth/verify-otp
 // @access  Public
 export const verifyOtp = async (req, res) => {
-    const { email, otp } = req.body;
+    const { otp } = req.body;
+    const email = req.body.email?.trim();
 
     if (!email || !otp) {
         return res.status(400).json({ message: 'Please provide email and OTP' });
