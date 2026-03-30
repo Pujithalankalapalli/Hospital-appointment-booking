@@ -99,12 +99,6 @@ npm start
 
 ---
 
-## 📸 Screenshots
-
-_Add your project screenshots here_
-
----
-
 ## 📈 Future Enhancements
 
 - 💳 Online Payment Integration  
